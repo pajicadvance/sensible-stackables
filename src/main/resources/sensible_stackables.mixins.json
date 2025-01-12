@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.pajic.sensible_stackables.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ItemMixin",
+    "ServerMainMixin",
+    "ThrowablePotionItemMixin"
+  ],
+  "client": [
+    "ClientMainMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

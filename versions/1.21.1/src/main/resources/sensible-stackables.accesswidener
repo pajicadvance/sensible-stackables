@@ -1,0 +1,3 @@
+accessWidener v2 named
+
+accessible method net/minecraft/world/item/Item$Properties buildAndValidateComponents ()Lnet/minecraft/core/component/DataComponentMap;
