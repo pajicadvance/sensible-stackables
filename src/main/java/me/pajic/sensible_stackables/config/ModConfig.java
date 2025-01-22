@@ -42,6 +42,8 @@ public class ModConfig {
         public int snowballMaxStackSize = 64;
         public boolean enableStackableEggs = true;
         public int eggMaxStackSize = 64;
+        public boolean enableStackableBannerPatterns = true;
+        public int bannerPatternMaxStackSize = 64;
     }
 
     public static void loadConfig() {

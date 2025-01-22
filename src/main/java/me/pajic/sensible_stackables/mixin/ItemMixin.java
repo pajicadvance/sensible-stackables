@@ -29,38 +29,31 @@ public class ItemMixin {
 
         if (ModConfig.CONFIG.enableStackablePotions && item instanceof PotionItem) {
             newStackSize = ModConfig.CONFIG.potionMaxStackSize;
-        }
-        else if (ModConfig.CONFIG.enableStackableSaddles && item instanceof SaddleItem) {
+        } else if (ModConfig.CONFIG.enableStackableSaddles && item instanceof SaddleItem) {
             newStackSize = ModConfig.CONFIG.saddleMaxStackSize;
-        }
-        else if (ModConfig.CONFIG.enableStackableMinecarts && item instanceof MinecartItem) {
+        } else if (ModConfig.CONFIG.enableStackableMinecarts && item instanceof MinecartItem) {
             newStackSize = ModConfig.CONFIG.minecartMaxStackSize;
-        }
-        else if (ModConfig.CONFIG.enableStackableBoats && item instanceof BoatItem) {
+        } else if (ModConfig.CONFIG.enableStackableBoats && item instanceof BoatItem) {
             newStackSize = ModConfig.CONFIG.boatMaxStackSize;
-        }
-        else if (ModConfig.CONFIG.enableStackableBeds && item instanceof BedItem) {
+        } else if (ModConfig.CONFIG.enableStackableBeds && item instanceof BedItem) {
             newStackSize = ModConfig.CONFIG.bedMaxStackSize;
-        }
-        else if (ModConfig.CONFIG.enableStackableSnowballs && item instanceof SnowballItem) {
+        } else if (ModConfig.CONFIG.enableStackableSnowballs && item instanceof SnowballItem) {
             newStackSize = ModConfig.CONFIG.snowballMaxStackSize;
-        }
-        else if (ModConfig.CONFIG.enableStackableEggs && item instanceof EggItem) {
+        } else if (ModConfig.CONFIG.enableStackableEggs && item instanceof EggItem) {
             newStackSize = ModConfig.CONFIG.eggMaxStackSize;
-        }
-        else if (ModConfig.CONFIG.enableStackableHorseArmor && item instanceof AnimalArmorItem && !components.has(DataComponents.MAX_DAMAGE)) {
+        } else if (ModConfig.CONFIG.enableStackableBannerPatterns && item instanceof BannerPatternItem) {
+            newStackSize = ModConfig.CONFIG.bannerPatternMaxStackSize;
+        } else if (ModConfig.CONFIG.enableStackableHorseArmor && item instanceof AnimalArmorItem && !components.has(DataComponents.MAX_DAMAGE)) {
             newStackSize = ModConfig.CONFIG.horseArmorMaxStackSize;
-        }
-        else if (ModConfig.CONFIG.enableStackableEnchantedBooks &&
+        } else if (ModConfig.CONFIG.enableStackableMusicDiscs && components.has(DataComponents.JUKEBOX_PLAYABLE)) {
+            newStackSize = ModConfig.CONFIG.musicDiscMaxStackSize;
+        } else if (ModConfig.CONFIG.enableStackableEnchantedBooks &&
                 //? if <= 1.21.1
                 item instanceof EnchantedBookItem
                 //? if > 1.21.1
                 /*components.has(DataComponents.STORED_ENCHANTMENTS) && !components.has(DataComponents.MAX_DAMAGE) && item.getDescriptionId().equals("item.minecraft.enchanted_book")*/
         ) {
             newStackSize = ModConfig.CONFIG.enchantedBookMaxStackSize;
-        }
-        else if (ModConfig.CONFIG.enableStackableMusicDiscs && components.has(DataComponents.JUKEBOX_PLAYABLE)) {
-            newStackSize = ModConfig.CONFIG.musicDiscMaxStackSize;
         }
 
         if (newStackSize > 0 && newStackSize <= 64) {
