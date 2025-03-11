@@ -42,6 +42,8 @@ public class ItemMixin {
             newStackSize = ModConfig.CONFIG.eggMaxStackSize;
         } else if (ModConfig.CONFIG.enableStackableBannerPatterns && item instanceof BannerPatternItem) {
             newStackSize = ModConfig.CONFIG.bannerPatternMaxStackSize;
+        } else if (ModConfig.CONFIG.enableStackableEnderPearls && item instanceof EnderpearlItem) {
+            newStackSize = ModConfig.CONFIG.enderPearlMaxStackSize;
         } else if (ModConfig.CONFIG.enableStackableHorseArmor && item instanceof AnimalArmorItem && !components.has(DataComponents.MAX_DAMAGE)) {
             newStackSize = ModConfig.CONFIG.horseArmorMaxStackSize;
         } else if (ModConfig.CONFIG.enableStackableMusicDiscs && components.has(DataComponents.JUKEBOX_PLAYABLE)) {

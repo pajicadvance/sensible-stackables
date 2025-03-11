@@ -44,6 +44,8 @@ public class ModConfig {
         public int eggMaxStackSize = 64;
         public boolean enableStackableBannerPatterns = true;
         public int bannerPatternMaxStackSize = 64;
+        public boolean enableStackableEnderPearls = true;
+        public int enderPearlMaxStackSize = 64;
     }
 
     public static void loadConfig() {
