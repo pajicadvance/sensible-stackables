@@ -46,6 +46,8 @@ public class ModConfig {
         public int bannerPatternMaxStackSize = 64;
         public boolean enableStackableEnderPearls = true;
         public int enderPearlMaxStackSize = 64;
+        public boolean enableStackableBowlFoods = true;
+        public int bowlFoodMaxStackSize = 16;
     }
 
     public static void loadConfig() {
