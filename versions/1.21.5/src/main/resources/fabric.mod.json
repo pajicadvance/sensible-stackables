@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "sensible_stackables",
+  "version": "${version}",
+  "name": "Sensible Stackables",
+  "description": "",
+  "authors": ["pajic"],
+  "contact": {},
+  "license": "MIT",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {},
+  "mixins": [
+    "sensible_stackables.mixins.json"
+  ],
+  "accessWidener": "sensible-stackables.accesswidener",
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": [
+      "1.21.5"
+    ]
+  }
+}
