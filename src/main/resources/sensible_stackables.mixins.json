@@ -4,6 +4,7 @@
   "package": "me.pajic.sensible_stackables.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "AnvilMenuMixin",
     "ItemMixin",
     "ItemPropertiesMixin",
     "ServerMainMixin",
