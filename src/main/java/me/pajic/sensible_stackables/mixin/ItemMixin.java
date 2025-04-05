@@ -5,13 +5,16 @@ import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.component.PatchedDataComponentMap;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import java.util.List;
+//? if <= 1.21.1 {
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.food.Foods;
+//?}
 //? if > 1.21.4
 /*import net.minecraft.world.item.equipment.Equippable;*/
 
@@ -19,6 +22,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ItemMixin {
 
     @Mutable @Shadow @Final private DataComponentMap components;
+    //? if > 1.21.1 {
+    /*@Unique private final List<String> bowlFoods = List.of(
+            "mushroom_stew", "rabbit_stew", "beetroot_soup", "suspicious_stew"
+    );
+    *///?}
 
     @Inject(
             method = "<init>",
@@ -70,10 +78,19 @@ public class ItemMixin {
         ) {
             newStackSize = ModConfig.CONFIG.enchantedBookMaxStackSize;
         } else if (ModConfig.CONFIG.enableStackableBowlFoods && components.has(DataComponents.FOOD)) {
+            //? if <= 1.21.1 {
             FoodProperties food = components.get(DataComponents.FOOD);
             if (food.equals(Foods.MUSHROOM_STEW) || food.equals(Foods.RABBIT_STEW) || food.equals(Foods.BEETROOT_SOUP) || food.equals(Foods.SUSPICIOUS_STEW)) {
                 newStackSize = ModConfig.CONFIG.bowlFoodMaxStackSize;
             }
+            //?}
+            //? if > 1.21.1 {
+            /*for (String bowlFood : bowlFoods) {
+                if (item.getDescriptionId().equals("item.minecraft." + bowlFood)) {
+                    newStackSize = ModConfig.CONFIG.bowlFoodMaxStackSize;
+                }
+            }
+            *///?}
         }
 
         if (newStackSize > 0 && newStackSize <= 64) {
