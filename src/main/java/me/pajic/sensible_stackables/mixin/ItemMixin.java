@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 //? if <= 1.21.1 {
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.food.Foods;
 //?}
 //? if > 1.21.4
 /*import net.minecraft.world.item.equipment.Equippable;*/
@@ -80,7 +79,7 @@ public class ItemMixin {
         } else if (ModConfig.CONFIG.enableStackableBowlFoods && components.has(DataComponents.FOOD)) {
             //? if <= 1.21.1 {
             FoodProperties food = components.get(DataComponents.FOOD);
-            if (food.equals(Foods.MUSHROOM_STEW) || food.equals(Foods.RABBIT_STEW) || food.equals(Foods.BEETROOT_SOUP) || food.equals(Foods.SUSPICIOUS_STEW)) {
+            if (food.usingConvertsTo().isPresent() && food.usingConvertsTo().get().is(Items.BOWL)) {
                 newStackSize = ModConfig.CONFIG.bowlFoodMaxStackSize;
             }
             //?}
