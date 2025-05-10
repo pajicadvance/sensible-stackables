@@ -1,8 +1,11 @@
 package me.pajic.sensible_stackables.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -87,5 +90,11 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
             return stack;
         }
         return original;
+    }
+
+    @WrapMethod(method = "onTake")
+    private void triggerCreateResultOnTake(Player player, ItemStack stack, Operation<Void> original) {
+        original.call(player, stack);
+        createResult();
     }
 }
