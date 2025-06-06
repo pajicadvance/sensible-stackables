@@ -30,7 +30,10 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
     *///?}
 
     @ModifyArg(
+            //? if < 1.21.5
             method = "createResult",
+            //? if >= 1.21.5
+            /*method = "createResultInternal",*/
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/inventory/ResultContainer;setItem(ILnet/minecraft/world/item/ItemStack;)V",
@@ -44,7 +47,10 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
     }
 
     @ModifyExpressionValue(
+            //? if < 1.21.5
             method = "createResult",
+            //? if >= 1.21.5
+            /*method = "createResultInternal",*/
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/item/ItemStack;getCount()I",
