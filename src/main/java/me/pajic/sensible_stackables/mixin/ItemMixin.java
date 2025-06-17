@@ -6,11 +6,15 @@ import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.component.PatchedDataComponentMap;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Block;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import java.util.List;
+
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 //? if <= 1.21.1 {
 import net.minecraft.world.food.FoodProperties;
 //?}
@@ -22,9 +26,17 @@ public class ItemMixin {
 
     @Mutable @Shadow @Final private DataComponentMap components;
     //? if > 1.21.1 {
-    /*@Unique private final List<String> bowlFoods = List.of(
+    /*@Unique private final Set<String> bowlFoods = Set.of(
             "mushroom_stew", "rabbit_stew", "beetroot_soup", "suspicious_stew"
     );
+    *///?}
+
+    //? if > 1.21.5 {
+    /*@Unique Set<Equippable> harnesses = new HashSet<>();
+    @Unique private boolean isHarness() {
+        if (harnesses.isEmpty()) for (DyeColor color : DyeColor.values()) harnesses.add(Equippable.harness(color));
+        return harnesses.contains(components.get(DataComponents.EQUIPPABLE));
+    }
     *///?}
 
     @Inject(
@@ -44,6 +56,10 @@ public class ItemMixin {
                 /*components.has(DataComponents.EQUIPPABLE) && components.get(DataComponents.EQUIPPABLE).equals(Equippable.saddle())*/
         ) {
             newStackSize = ModConfig.CONFIG.saddleMaxStackSize;
+        //? if > 1.21.5 {
+        /*} else if (ModConfig.CONFIG.enableStackableHarness && isHarness()) {
+            newStackSize = ModConfig.CONFIG.harnessMaxStackSize;
+        *///?}
         } else if (ModConfig.CONFIG.enableStackableMinecarts && item instanceof MinecartItem) {
             newStackSize = ModConfig.CONFIG.minecartMaxStackSize;
         } else if (ModConfig.CONFIG.enableStackableBoats && item instanceof BoatItem) {

@@ -32,6 +32,10 @@ public class ModConfig {
         public int musicDiscMaxStackSize = 64;
         public boolean enableStackableSaddles = true;
         public int saddleMaxStackSize = 16;
+        //? if > 1.21.5 {
+        /*public boolean enableStackableHarness = true;
+        public int harnessMaxStackSize = 16;
+        *///?}
         public boolean enableStackableMinecarts = true;
         public int minecartMaxStackSize = 16;
         public boolean enableStackableBoats = true;
@@ -48,6 +52,8 @@ public class ModConfig {
         public int enderPearlMaxStackSize = 64;
         public boolean enableStackableBowlFoods = true;
         public int bowlFoodMaxStackSize = 16;
+        public boolean enableStackableCake = false;
+        public int cakeMaxStackSize = 16;
     }
 
     public static void loadConfig() {

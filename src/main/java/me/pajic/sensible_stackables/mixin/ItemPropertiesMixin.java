@@ -17,9 +17,12 @@ public class ItemPropertiesMixin {
                     target = "Lnet/minecraft/world/item/Item$Properties;stacksTo(I)Lnet/minecraft/world/item/Item$Properties;"
             )
     )
-    private int modifyHorseArmorStackSize(int maxStackSize) {
-        if (ModConfig.CONFIG.enableStackableHorseArmor) return ModConfig.CONFIG.horseArmorMaxStackSize;
-        return maxStackSize;
+    private int modifyHorseArmorStackSize(int original) {
+        if (ModConfig.CONFIG.enableStackableHorseArmor) {
+            int stackSize = ModConfig.CONFIG.horseArmorMaxStackSize;
+            if (stackSize > 0 && stackSize <= 64) return stackSize;
+        }
+        return original;
     }
     *///?}
 }
