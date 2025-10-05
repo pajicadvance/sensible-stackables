@@ -1,20 +1,20 @@
-package me.pajic.modid.mixin;
+package me.pajic.sensible_stackables.mixin.init;
 
-import me.pajic.modid.Main;
-import net.minecraft.client.Minecraft;
+import me.pajic.sensible_stackables.ModConfig;
+import net.minecraft.client.main.Main;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(Minecraft.class)
-public class ExampleMixin {
+@Mixin(Main.class)
+public class ClientMainMixin {
 
     @Inject(
-            method = "<init>",
-            at = @At("TAIL")
+            method = "<clinit>",
+            at = @At("HEAD")
     )
     private static void onInit(CallbackInfo ci) {
-        Main.debugLog("This is a debug message!");
+        ModConfig.loadConfig();
     }
 }
