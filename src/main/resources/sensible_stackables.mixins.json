@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.pajic.sensible_stackables.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "init.ServerMainMixin",
+    "patches.AnvilMenuMixin",
+    "patches.HorseInventoryMenuSaddleSlotMixin",
+    "patches.ThrowablePotionItemMixin"
+  ],
+  "client": [
+    "init.ClientMainMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

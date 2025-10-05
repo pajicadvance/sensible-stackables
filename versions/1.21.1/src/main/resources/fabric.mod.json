@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "sensible_stackables",
+  "version": "${version}",
+  "name": "Sensible Stackables",
+  "description": "Change stack sizes for any item, with sensible defaults",
+  "authors": ["pajic"],
+  "contact": {},
+  "license": "MIT",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "me.pajic.sensible_stackables.Main"
+    ],
+    "server": [
+      "me.pajic.sensible_stackables.ServerMain"
+    ],
+    "client": [
+      "me.pajic.sensible_stackables.ClientMain"
+    ]
+  },
+  "mixins": [
+    "sensible_stackables.mixins.json"
+  ],
+  "accessWidener": "sensible_stackables.accesswidener",
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "1.21.1"
+  }
+}

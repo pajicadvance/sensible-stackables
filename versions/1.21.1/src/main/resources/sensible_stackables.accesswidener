@@ -1,0 +1,4 @@
+accessWidener v2 named
+
+accessible field net/minecraft/world/item/Item components Lnet/minecraft/core/component/DataComponentMap;
+mutable field net/minecraft/world/item/Item components Lnet/minecraft/core/component/DataComponentMap;
