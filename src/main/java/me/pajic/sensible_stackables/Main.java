@@ -1,6 +1,6 @@
 package me.pajic.sensible_stackables;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.component.PatchedDataComponentMap;
@@ -9,11 +9,11 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.loading.FMLLoader;
@@ -38,18 +38,19 @@ public class Main {
         modEventBus.addListener(this::registerPayload);
     }
 
-    public static void patchItems(Level level) {
-        Registry<Item> registry = level.registryAccess()./*? if <= 1.21.1 {*/registryOrThrow/*?} else {*//*lookupOrThrow*//*?}*/(Registries.ITEM);
+    public static void patchItems(HolderLookup.RegistryLookup<Item> registry) {
         ModConfig.CONFIG.items().forEach((s, i) -> {
             if (s.startsWith("#")) {
                 ResourceLocation rl = ResourceLocation.tryParse(s.substring(1));
-                if (rl != null) registry.getTagOrEmpty(TagKey.create(Registries.ITEM, rl)).forEach(
+                if (rl != null) registry.get(TagKey.create(Registries.ITEM, rl)).ifPresent(holders -> holders.forEach(
                         itemHolder -> patchItem(itemHolder.value(), i)
-                );
+                ));
                 else LOGGER.error("Item tag {} not found", s);
             } else {
                 ResourceLocation rl = ResourceLocation.tryParse(s);
-                if (rl != null) registry.getOptional(rl).ifPresent(item -> patchItem(item, i));
+                if (rl != null) registry.get(ResourceKey.create(Registries.ITEM, rl)).ifPresent(
+                        item -> patchItem(item.value(), i)
+                );
                 else LOGGER.error("Item {} not found", s);
             }
         });
@@ -97,7 +98,7 @@ public class Main {
                 (payload, context) -> {
                     Main.debugLog("Applying stack sizes received from server");
                     ModConfig.CONFIG = new ModConfig.Config(payload.items(), payload.splashPotionCooldown(), payload.uncapStackSize());
-                    Main.patchItems(context.player().level());
+                    Main.patchItems(context.player().level().registryAccess().lookupOrThrow(Registries.ITEM));
                 }
         );
     }
