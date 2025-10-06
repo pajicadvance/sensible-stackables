@@ -1,4 +1,1 @@
-- Rewrote mod to be less bad.
-- Stack sizes can now be changed for any item and the mod configuration now supports item tags, see mod description for details.
-- Added configuration syncing between client and server. While connected to a server, the mod will use the server's mod configuration instead of the local one. This ensures that all players on a server have the same stack size data even if every player has a different local configuration.
-- Updated to Minecraft 1.21.9.
+- Attempt to fix stack sizes not being properly applied on initial load.

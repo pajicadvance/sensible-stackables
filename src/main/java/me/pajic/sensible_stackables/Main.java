@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.component.PatchedDataComponentMap;
@@ -18,7 +19,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,8 +43,8 @@ public class Main implements ModInitializer {
         });
     }
 
-    public static void patchItems(Level level) {
-        Registry<Item> registry = level.registryAccess()./*? if <= 1.21.1 {*/registryOrThrow/*?} else {*//*lookupOrThrow*//*?}*/(Registries.ITEM);
+    public static void patchItems(RegistryAccess registryAccess) {
+        Registry<Item> registry = registryAccess./*? if <= 1.21.1 {*/registryOrThrow/*?} else {*//*lookupOrThrow*//*?}*/(Registries.ITEM);
         ModConfig.CONFIG.items().forEach((s, i) -> {
             if (s.startsWith("#")) {
                 ResourceLocation rl = ResourceLocation.tryParse(s.substring(1));
