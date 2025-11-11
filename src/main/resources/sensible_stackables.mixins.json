@@ -3,19 +3,25 @@
   "package": "me.pajic.sensible_stackables.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "init.PlayerListMixin",
     "init.ServerMainMixin",
-    "patches.AnvilMenuMixin",
-    "patches.HorseInventoryMenuSaddleSlotMixin",
-    "patches.ThrowablePotionItemMixin"
+    "menu_fixes.AnvilMenuMixin",
+    "menu_fixes.FurnaceFuelSlotMixin",
+    "menu_fixes.HorseInventoryMenuSaddleSlotMixin",
+    "stack_uncapper.ContainerMixin",
+    "stack_uncapper.ContainersMixin",
+    "stack_uncapper.DataComponentsMixin",
+    "stack_uncapper.ItemEntityMixin",
+    "stack_uncapper.ItemStackMixin",
+    "throw_cooldown.ThrowablePotionItemMixin"
+  ],
+  "client": [
+    "init.ClientMainMixin",
+    "stack_uncapper.GuiGraphicsMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "overwrites": {
     "requireAnnotations": true
-  },
-  "client": [
-    "init.ClientMainMixin"
-  ]
+  }
 }

@@ -1,4 +1,4 @@
-package me.pajic.sensible_stackables.mixin.patches;
+package me.pajic.sensible_stackables.mixin.menu_fixes;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
@@ -24,9 +24,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
     public AnvilMenuMixin(@Nullable MenuType<?> type, int containerId, Inventory playerInventory, ContainerLevelAccess access) {
         super(type, containerId, playerInventory, access);
     }
-    //?}
-
-    //? if > 1.21.1 {
+    //?} else {
     /*public AnvilMenuMixin(@Nullable MenuType<?> menuType, int containerId, Inventory inventory, ContainerLevelAccess access, ItemCombinerMenuSlotDefinition slotDefinition) {
         super(menuType, containerId, inventory, access, slotDefinition);
     }

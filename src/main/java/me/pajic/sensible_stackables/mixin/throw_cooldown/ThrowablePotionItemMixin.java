@@ -1,4 +1,4 @@
-package me.pajic.sensible_stackables.mixin.patches;
+package me.pajic.sensible_stackables.mixin.throw_cooldown;
 
 import me.pajic.sensible_stackables.ModConfig;
 import net.minecraft.world.InteractionHand;
@@ -33,9 +33,7 @@ public class ThrowablePotionItemMixin extends PotionItem {
             player.getCooldowns().addCooldown(player.getItemInHand(usedHand).getItem(), ModConfig.CONFIG.splashPotionCooldown() * 20);
         }
     }
-    //?}
-
-    //? if > 1.21.1 {
+    //?} else {
     /*@Inject(
             method = "use",
             at = @At("RETURN")
