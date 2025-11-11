@@ -1,4 +1,4 @@
-package me.pajic.sensible_stackables.mixin.patches;
+package me.pajic.sensible_stackables.mixin.menu_fixes;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;

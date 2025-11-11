@@ -3,7 +3,7 @@
   "id": "sensible_stackables",
   "version": "${version}",
   "name": "Sensible Stackables",
-  "description": "Increase item stack size via datapacks, with sensible defaults",
+  "description": "Change stack sizes for any item, with sensible defaults",
   "authors": ["pajic"],
   "contact": {},
   "license": "MIT",
@@ -12,12 +12,6 @@
   "entrypoints": {
     "main": [
       "me.pajic.sensible_stackables.Main"
-    ],
-    "server": [
-      "me.pajic.sensible_stackables.ServerMain"
-    ],
-    "client": [
-      "me.pajic.sensible_stackables.ClientMain"
     ]
   },
   "mixins": [
@@ -27,6 +21,6 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "minecraft": ">=1.21.5 <1.22"
+    "minecraft": "${minecraft_version}"
   }
 }

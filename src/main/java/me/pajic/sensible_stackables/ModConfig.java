@@ -3,7 +3,6 @@ package me.pajic.sensible_stackables;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
-import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.FileNotFoundException;
@@ -16,10 +15,7 @@ import java.util.Map;
 public class ModConfig {
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    private static final Path FILE_PATH = FabricLoader.getInstance().getConfigDir().resolve(
-            FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER ?
-                    "sensible_stackables_server.json" : "sensible_stackables_client.json"
-    );
+    private static final Path FILE_PATH = FabricLoader.getInstance().getConfigDir().resolve("sensible_stackables.json");
     public static Config CONFIG;
 
     public static void loadConfig() {
@@ -31,10 +27,13 @@ public class ModConfig {
         try (FileReader reader = new FileReader(FILE_PATH.toFile())) {
             CONFIG = GSON.fromJson(reader, Config.class);
         } catch (FileNotFoundException | JsonSyntaxException e) {
-            Main.debugLog("Config doesn't exist or is malformed, initializing new mod config...");
+            if (e.getCause() instanceof NumberFormatException) {
+                Main.LOGGER.error("Stack size can be 2147483647 at most! Resetting config.", e);
+            }
+            Main.debugLog("Config doesn't exist or is malformed, initializing new mod config\n{}", e);
             initializeConfig();
         } catch (IOException e) {
-            Main.debugLog("Failed to read mod config", e);
+            Main.debugLog("Failed to read mod config\n{}", e);
         }
     }
 
@@ -42,7 +41,7 @@ public class ModConfig {
         try (FileWriter writer = new FileWriter(FILE_PATH.toFile())) {
             GSON.toJson(CONFIG, writer);
         } catch (IOException e) {
-            Main.debugLog("Failed to save mod config", e);
+            Main.debugLog("Failed to save mod config\n{}", e);
         }
     }
 
@@ -51,7 +50,7 @@ public class ModConfig {
             CONFIG = new Config();
             GSON.toJson(CONFIG, writer);
         } catch (IOException e) {
-            Main.debugLog("Failed to initialize mod config", e);
+            Main.debugLog("Failed to initialize mod config\n{}", e);
         }
     }
 
@@ -59,6 +58,7 @@ public class ModConfig {
         Map<String, Integer> items;
         int splashPotionCooldown;
         boolean uncapStackSize;
+        int commonStackSize;
 
         public Config() {
             items = Map.ofEntries(
@@ -80,12 +80,7 @@ public class ModConfig {
             );
             splashPotionCooldown = 1;
             uncapStackSize = false;
-        }
-
-        public Config(Map<String, Integer> items, int splashPotionCooldown, boolean uncapStackSize) {
-            this.items = items;
-            this.splashPotionCooldown = splashPotionCooldown;
-            this.uncapStackSize = uncapStackSize;
+            commonStackSize = 64;
         }
 
         public Map<String, Integer> items() {
@@ -97,5 +92,7 @@ public class ModConfig {
         }
 
         public boolean uncapStackSize() {return uncapStackSize;}
+
+        public int commonStackSize() {return commonStackSize;}
     }
 }

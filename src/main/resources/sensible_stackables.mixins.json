@@ -5,12 +5,19 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "init.ServerMainMixin",
-    "patches.AnvilMenuMixin",
-    "patches.HorseInventoryMenuSaddleSlotMixin",
-    "patches.ThrowablePotionItemMixin"
+    "menu_fixes.AnvilMenuMixin",
+    "stack_uncapper.ContainerMixin",
+    "stack_uncapper.ContainersMixin",
+    "stack_uncapper.DataComponentsMixin",
+    "menu_fixes.FurnaceFuelSlotMixin",
+    "menu_fixes.HorseInventoryMenuSaddleSlotMixin",
+    "stack_uncapper.ItemEntityMixin",
+    "stack_uncapper.ItemStackMixin",
+    "throw_cooldown.ThrowablePotionItemMixin"
   ],
   "client": [
-    "init.ClientMainMixin"
+    "init.ClientMainMixin",
+    "stack_uncapper.GuiGraphicsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

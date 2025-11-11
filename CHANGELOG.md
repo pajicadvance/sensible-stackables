@@ -1,1 +1,6 @@
-- Attempt to fix stack sizes not being properly applied on initial load.
+- `uncapStackSize` option now allows setting max stack size values above 99 and up to the integer max value (around 2.1 billion).
+- New `commonStackSize` option that applies a max stack size to all items in the game which use the default stack size. Only works when `uncapStackSize` is set to true.
+  - Before using large max stack sizes, read the mod description for recommended settings and possible performance issues.
+- Disabled config sync to hopefully fix issues with max stack sizes sometimes going out of sync.
+  - To restore your configuration, rename `sensible_stackables_client.json` or `sensible_stackables_server.json` to `sensible_stackables.json`.
+  - If you're running a server, make sure that the configuration on all clients matches the server configuration, otherwise desync issues may arise.
