@@ -1,7 +1,7 @@
 package me.pajic.sensible_stackables;
 
 import me.pajic.sensible_stackables.platform.Platform;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.math.RoundingMode;
@@ -18,7 +18,7 @@ import me.pajic.sensible_stackables.platform.fabric.FabricPlatform;
 public class SensibleStackables {
 
 	public static final String MOD_ID = /*$ mod_id*/ "sensible_stackables";
-	public static final String MOD_VERSION = /*$ mod_version*/ "2.1.1";
+	public static final String MOD_VERSION = /*$ mod_version*/ "2.1.2";
 	public static final String MOD_FRIENDLY_NAME = /*$ mod_name*/ "Sensible Stackables";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	private static final Platform PLATFORM = createPlatformInstance();
@@ -43,8 +43,8 @@ public class SensibleStackables {
 		*///?}
 	}
 
-	public static ResourceLocation id(String path) {
-		return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+	public static Identifier id(String path) {
+		return Identifier.fromNamespaceAndPath(MOD_ID, path);
 	}
 
 	public static void debugLog(String message, Object ... args) {

@@ -61,6 +61,10 @@ fletchingTable {
 
 repositories {
 	maven("https://maven.parchmentmc.org") { name = "ParchmentMC" }
+	exclusiveContent {
+		forRepository { maven("https://api.modrinth.com/maven") { name = "Modrinth" } }
+		filter { includeGroup("maven.modrinth") }
+	}
 }
 
 dependencies {
@@ -73,4 +77,5 @@ dependencies {
 		})
 	modImplementation(libs.fabric.loader)
 	modImplementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabric-api")}")
+	if (stonecutter.eval("1.21.1")) modRuntimeOnly("maven.modrinth:o123456789:2.2+1.21.1-fabric")
 }
