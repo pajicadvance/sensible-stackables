@@ -27,7 +27,7 @@ public class ContainersMixin {
     )
     private static int increaseSplit(int original, @Local(argsOnly = true) Level level, @Local(argsOnly = true) ItemStack stack) {
         if (ModConfig.CONFIG.uncapStackSize()) {
-            int batchSize = Math.round(stack.getMaxStackSize() / 6F);
+            int batchSize = Math.max(Math.round(stack.getMaxStackSize() / 6F), 1);
             return level.random.nextInt(2 * batchSize) + batchSize;
         }
         return original;
