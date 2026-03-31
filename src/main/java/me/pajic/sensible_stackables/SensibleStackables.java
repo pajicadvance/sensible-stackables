@@ -1,10 +1,7 @@
 package me.pajic.sensible_stackables;
 
 import me.pajic.sensible_stackables.platform.Platform;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.math.RoundingMode;
@@ -30,9 +27,6 @@ public class SensibleStackables {
 		FORMATTER = NumberFormat.getCompactNumberInstance(Locale.US, NumberFormat.Style.SHORT);
 		FORMATTER.setParseIntegerOnly(true);
 		FORMATTER.setRoundingMode(RoundingMode.DOWN);
-	}
-
-	public static void onInitializeClient() {
 	}
 
 	public static Platform xplat() {
