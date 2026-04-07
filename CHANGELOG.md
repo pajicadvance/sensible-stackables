@@ -1,1 +1,1 @@
-- Relaxed MC version requirement so that I don't have to upload a new file every time MC gets a hotfix. No functional changes to the mod.
+- Patch ItemStackTemplate to accept more than 99 items when stack size is uncapped. Fixes crashes with some mods.
