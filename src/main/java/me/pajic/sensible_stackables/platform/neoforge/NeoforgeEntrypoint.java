@@ -21,7 +21,7 @@ public class NeoforgeEntrypoint {
 
 	@SubscribeEvent
 	private static void initPatchEvent(TagsUpdatedEvent event) {
-		Patcher.patchItems(event./^? if 1.21.1 {^//^getRegistryAccess()^//^?} else {^/getLookupProvider()/^?}^/);
+		Patcher.patchItems(event./^? if 1.21.1 {^/getRegistryAccess()/^?} else {^//^getLookupProvider()^//^?}^/);
 	}
 }
 *///?}

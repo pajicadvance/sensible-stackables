@@ -1,2 +1,1 @@
-- Fixed a bug that caused chests to not drop the items they contain when destroyed if "Uncap stack size" is enabled and there were unstackable items in the chest.
-- Changed the `minecraft:eggs` default config entry to `#c:eggs` to make egg variants stackable.
+- Fixed combining stacks of books in the anvil behaving incorrectly on NeoForge.

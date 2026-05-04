@@ -77,7 +77,6 @@ repositories {
 }
 
 dependencies {
-	if (stonecutter.eval("1.21.1")) runtimeOnly("maven.modrinth:o123456789:2.2+1.21.1-neoforge")
 }
 
 tasks.named("createMinecraftArtifacts") {

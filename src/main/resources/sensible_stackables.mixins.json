@@ -2,6 +2,7 @@
   "package": "me.pajic.sensible_stackables.mixin",
   "required": true,
   "minVersion": "0.8",
+  "mixinextras": {"minVersion": "0.5.3"},
   "compatibilityLevel": "JAVA_21",
   "injectors": {
     "defaultRequire": 1

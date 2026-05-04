@@ -11,10 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-//? if 1.21.1
-//import net.minecraft.world.InteractionResultHolder;
-//? if > 1.21.1
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 
 @Mixin(ThrowablePotionItem.class)
 public class ThrowablePotionItemMixin extends PotionItem {
@@ -23,8 +20,7 @@ public class ThrowablePotionItemMixin extends PotionItem {
         super(properties);
     }
 
-    //? if 1.21.1 {
-    /*@Inject(
+    @Inject(
             method = "use",
             at = @At("RETURN")
     )
@@ -33,15 +29,4 @@ public class ThrowablePotionItemMixin extends PotionItem {
             player.getCooldowns().addCooldown(player.getItemInHand(usedHand).getItem(), ModConfig.CONFIG.splashPotionCooldown() * 20);
         }
     }
-    *///?} else {
-    @Inject(
-            method = "use",
-            at = @At("RETURN")
-    )
-    private void addThrowingCooldown(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
-        if (ModConfig.CONFIG.splashPotionCooldown() > 0) {
-            player.getCooldowns().addCooldown(player.getItemInHand(hand), ModConfig.CONFIG.splashPotionCooldown() * 20);
-        }
-    }
-    //?}
 }

@@ -23,7 +23,7 @@ public class NeoforgePlatform implements Platform {
 
 	@Override
 	public String mcVersion() {
-		return FMLLoader/^? if 1.21.1 {^//^.versionInfo()^//^?} else {^/.getCurrent().getVersionInfo()/^?}^/.mcVersion();
+		return FMLLoader/^? if 1.21.1 {^/.versionInfo()/^?} else {^//^.getCurrent().getVersionInfo()^//^?}^/.mcVersion();
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class NeoforgePlatform implements Platform {
 
 	@Override
 	public boolean isDebug() {
-		return !FMLLoader/^? if > 1.21.1 {^/.getCurrent()/^?}^/.isProduction();
+		return !FMLLoader/^? if > 1.21.1 {^//^.getCurrent()^//^?}^/.isProduction();
 	}
 }
 *///?}

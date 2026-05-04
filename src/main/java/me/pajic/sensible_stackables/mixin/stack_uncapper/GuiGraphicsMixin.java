@@ -11,7 +11,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.Mth;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.joml.Matrix3x2fStack;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -21,28 +20,19 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(GuiGraphics.class)
 public class GuiGraphicsMixin {
 
-    //? if 1.21.1
-    //@Shadow @Final private PoseStack pose;
-    //? if > 1.21.1
-    @Shadow @Final private Matrix3x2fStack pose;
+    @Shadow @Final private PoseStack pose;
 
     /**
      * @reason Abbreviates large item counts to prevent text overlapping in GUIs.
      */
     @WrapOperation(
-            //? if 1.21.1
-            //method = "renderItemDecorations(Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;IILjava/lang/String;)V",
-            //? if > 1.21.1
-            method = "renderItemCount",
+            method = "renderItemDecorations(Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;IILjava/lang/String;)V",
             at = @At(
                     value = "INVOKE",
-                    //? if 1.21.1
-                    //target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Ljava/lang/String;IIIZ)I"
-                    //? if > 1.21.1
-                    target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Ljava/lang/String;IIIZ)V"
+                    target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Ljava/lang/String;IIIZ)I"
             )
     )
-    private /*? if 1.21.1 {*//*int*//*?} else {*/void/*?}*/ modifyStackSizeText(
+    private int modifyStackSizeText(
             GuiGraphics instance, Font font, String text, int x, int y, int color, boolean dropShadow, Operation<Integer> original,
             @Local(ordinal = 1) String string, @Local(argsOnly = true, ordinal = 0) int xParam, @Local(argsOnly = true, ordinal = 1) int yParam
     ) {
@@ -53,15 +43,15 @@ public class GuiGraphicsMixin {
                 case 3 -> 0.75F;
                 default -> 0.5F;
             };
-            pose.translate(xParam, yParam/*? if 1.21.1 {*//*, 0*//*?}*/);
-            if (scale != 1) pose.scale(scale, scale/*? if 1.21.1 {*//*, 0*//*?}*/);
-            /*? if 1.21.1 {*//*return*//*?}*/ original.call(
+            pose.translate(xParam, yParam, 0);
+            if (scale != 1) pose.scale(scale, scale, 0);
+            return original.call(
                     instance, font, formatted,
                     (int) (16 / scale - font.width(formatted) + (scale * 0.33F) + 1 / scale),
                     (int) (16 / scale - font.lineHeight + Mth.ceil(scale) + 1 / scale),
                     color, dropShadow
             );
         }
-        else /*? if 1.21.1 {*//*return*//*?}*/ original.call(instance, font, text, x, y, color, dropShadow);
+        else return original.call(instance, font, text, x, y, color, dropShadow);
     }
 }

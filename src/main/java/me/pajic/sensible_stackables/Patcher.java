@@ -7,7 +7,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.component.PatchedDataComponentMap;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
@@ -19,13 +19,13 @@ public class Patcher {
 		HolderLookup<Item> registry = provider.lookupOrThrow(Registries.ITEM);
 		ModConfig.CONFIG.items().forEach((s, i) -> {
 			if (s.startsWith("#")) {
-				Identifier rl = Identifier.tryParse(s.substring(1));
+				ResourceLocation rl = ResourceLocation.tryParse(s.substring(1));
 				if (rl != null) registry.get(TagKey.create(Registries.ITEM, rl)).ifPresent(item ->
 						item.forEach(itemHolder -> patchItem(itemHolder.value(), i))
 				);
 				else SensibleStackables.LOGGER.error("Item tag {} not found", s);
 			} else {
-				Identifier rl = Identifier.tryParse(s);
+				ResourceLocation rl = ResourceLocation.tryParse(s);
 				if (rl != null) registry.get(ResourceKey.create(Registries.ITEM, rl)).ifPresent(item -> patchItem(item.value(), i));
 				else SensibleStackables.LOGGER.error("Item {} not found", s);
 			}

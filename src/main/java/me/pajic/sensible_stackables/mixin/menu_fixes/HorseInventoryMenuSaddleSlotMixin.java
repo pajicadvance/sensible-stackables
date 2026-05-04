@@ -9,13 +9,11 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(targets = "net/minecraft/world/inventory/HorseInventoryMenu$1")
 public class HorseInventoryMenuSaddleSlotMixin {
 
-    //? if 1.21.1 {
-    /*@ModifyReturnValue(
+    @ModifyReturnValue(
             method = "mayPlace",
             at = @At("RETURN")
     )
     private boolean modifyMayPlace(boolean original, @Local(argsOnly = true) ItemStack stack) {
         return original && stack.getCount() == 1;
     }
-    *///?}
 }

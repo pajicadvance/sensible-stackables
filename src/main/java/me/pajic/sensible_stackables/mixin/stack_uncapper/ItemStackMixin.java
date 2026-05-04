@@ -27,10 +27,8 @@ public abstract class ItemStackMixin implements DataComponentHolder {
     @ModifyArg(
 			//? if fabric
             method = "method_57371",
-			//? if neoforge && 1.21.1
+			//? if neoforge
 			//method = "lambda$static$3",
-			//? if neoforge && > 1.21.1
-			//method = "lambda$static$1",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/util/ExtraCodecs;intRange(II)Lcom/mojang/serialization/Codec;"
@@ -49,12 +47,8 @@ public abstract class ItemStackMixin implements DataComponentHolder {
             method = "getTooltipLines",
             at = @At(
                     value = "INVOKE",
-                    //? if 1.21.1 {
-                    /*target = "Lnet/minecraft/world/item/TooltipFlag;isAdvanced()Z",
+                    target = "Lnet/minecraft/world/item/TooltipFlag;isAdvanced()Z",
                     ordinal = 0
-                    *///?} else {
-                    target = "Lnet/minecraft/world/item/ItemStack;addDetailsToTooltip(Lnet/minecraft/world/item/Item$TooltipContext;Lnet/minecraft/world/item/component/TooltipDisplay;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/TooltipFlag;Ljava/util/function/Consumer;)V"
-                    //?}
             )
     )
     private void showExactItemCountIfLarge(CallbackInfoReturnable<List<Component>> cir, @Local List<Component> list) {
