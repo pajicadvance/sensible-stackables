@@ -1,1 +1,1 @@
-- Patch ItemStackTemplate to accept more than 99 items when stack size is uncapped. Fixes crashes with some mods.
+- Fixed combining stacks of books in the anvil behaving incorrectly on NeoForge.
