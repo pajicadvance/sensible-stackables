@@ -1,7 +1,7 @@
 package me.pajic.sensible_stackables.mixin.stack_uncapper;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import me.pajic.sensible_stackables.config.ModConfig;
+import me.pajic.sensible_stackables.SensibleStackables;
 import net.minecraft.world.Container;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,6 +17,6 @@ public interface ContainerMixin {
             at = @At("RETURN")
     )
     private int uncapStackSize(int original) {
-        return ModConfig.CONFIG.uncapStackSize() ? Integer.MAX_VALUE : original;
+        return SensibleStackables.CONFIG.uncapStackSize.get() ? Integer.MAX_VALUE : original;
     }
 }

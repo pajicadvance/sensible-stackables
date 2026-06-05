@@ -1,7 +1,7 @@
 package me.pajic.sensible_stackables.mixin.stack_uncapper;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import me.pajic.sensible_stackables.config.ModConfig;
+import me.pajic.sensible_stackables.SensibleStackables;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -15,7 +15,7 @@ public class ContainersMixin {
     /**
      * @reason Vanilla hardcodes the amount to split the stack by to 10-30.
      * When the max stack size is set to very high values, breaking containers which have thousands or even millions of items
-     * will spawn enough item entities to slow down the renderer down to a crawl and effectively deadlock the game.
+     * will spawn enough item entities to slow the renderer down to a crawl and effectively deadlock the game.
      * This mixin patches the stack split amount to be based on the item's max stack size instead of a hardcoded value.
      */
     @ModifyArg(
@@ -27,10 +27,10 @@ public class ContainersMixin {
     )
     private static int increaseSplit(
 			int original,
-			@Local(name = "level") Level level,
-			@Local(name = "itemStack") ItemStack itemStack
+			@Local(name = "level", argsOnly = true) Level level,
+			@Local(name = "itemStack", argsOnly = true) ItemStack itemStack
 	) {
-        if (ModConfig.CONFIG.uncapStackSize()) {
+        if (SensibleStackables.CONFIG.uncapStackSize.get()) {
             int batchSize = Math.max(Math.round(itemStack.getMaxStackSize() / 6F), 1);
             return level.getRandom().nextInt(2 * batchSize) + batchSize;
         }

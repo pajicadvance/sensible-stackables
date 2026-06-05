@@ -12,6 +12,18 @@ platform {
 		required("neoforge") {
 			forgeVersionRange = "[1,)"
 		}
+		required("fzzy_config") {
+			slug("fzzy-config")
+			forgeVersionRange = "[0,)"
+		}
+		required("mixson") {
+			slug("mixson")
+			forgeVersionRange = "[0,)"
+		}
+		required("defaulted") {
+			slug("defaulted")
+			forgeVersionRange = "[0,)"
+		}
 	}
 }
 
@@ -41,10 +53,15 @@ neoForge {
 
 repositories {
 	mavenCentral()
+	strictMaven("https://maven.fzzyhmstrs.me/", "me.fzzyhmstrs") { name = "Fzzy Config" }
+	strictMaven("https://thedarkcolour.github.io/KotlinForForge/") { name = "KotlinForForge" }
 	strictMaven("https://api.modrinth.com/maven", "maven.modrinth") { name = "Modrinth" }
 }
 
 dependencies {
+	implementation("me.fzzyhmstrs:fzzy_config:${prop("deps.fzzy_config")}+neoforge")
+	implementation("maven.modrinth:mixson:${prop("deps.mixson")}")
+	implementation("maven.modrinth:defaulted:${prop("deps.defaulted")}")
 }
 
 tasks.named("createMinecraftArtifacts") {

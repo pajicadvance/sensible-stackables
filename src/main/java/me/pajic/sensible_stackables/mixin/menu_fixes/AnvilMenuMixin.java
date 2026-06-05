@@ -98,8 +98,8 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
     }
 
     @WrapMethod(method = "onTake")
-    private void triggerCreateResultOnTake(Player player, ItemStack stack, Operation<Void> original) {
-        original.call(player, stack);
+    private void triggerCreateResultOnTake(Player player, ItemStack carried, Operation<Void> original) {
+        original.call(player, carried);
         createResult();
     }
 }

@@ -16,7 +16,18 @@ platform {
 		required("fabricloader") {
 			versionRange = ">=${libs.fabric.loader.get().version}"
 		}
-		optional("modmenu") {}
+		required("fzzy_config") {
+			slug("fzzy-config")
+			versionRange = "*"
+		}
+		required("mixson") {
+			slug("mixson")
+			versionRange = "*"
+		}
+		required("defaulted") {
+			slug("defaulted")
+			versionRange = "*"
+		}
 	}
 }
 
@@ -40,6 +51,8 @@ loom {
 
 repositories {
 	mavenCentral()
+	strictMaven("https://maven.fzzyhmstrs.me/", "me.fzzyhmstrs") { name = "Fzzy Config" }
+	strictMaven("https://maven.terraformersmc.com/", "com.terraformersmc") { name = "TerraformersMC" }
 	strictMaven("https://api.modrinth.com/maven", "maven.modrinth") { name = "Modrinth" }
 }
 
@@ -47,4 +60,10 @@ dependencies {
 	minecraft("com.mojang:minecraft:${prop("deps.minecraft")}")
 	implementation(libs.fabric.loader)
 	implementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabric-api")}")
+	runtimeOnly("com.terraformersmc:modmenu:${prop("deps.modmenu")}")
+	implementation("me.fzzyhmstrs:fzzy_config:${prop("deps.fzzy_config")}")
+	implementation("maven.modrinth:mixson:${prop("deps.mixson")}") {
+		exclude(group = "net.fabricmc.fabric-api", module = "fabric-api")
+	}
+	implementation("maven.modrinth:defaulted:${prop("deps.defaulted")}")
 }

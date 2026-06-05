@@ -1,11 +1,11 @@
-package me.pajic.sensible_stackables.mixin.stack_uncapper;
+package me.pajic.sensible_stackables.mixin.stack_uncapper.client;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 import me.pajic.sensible_stackables.SensibleStackables;
-import me.pajic.sensible_stackables.config.ModConfig;
+import me.pajic.sensible_stackables.SensibleStackablesClient;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.util.Mth;
@@ -23,8 +23,9 @@ public class GuiGraphicsExtractorMixin {
     @Shadow @Final private Matrix3x2fStack pose;
 
     /**
-     * @reason Abbreviates large item counts to prevent text overlapping in GUIs.
+     * @reason Shortens large item counts and scales down font size to prevent text overlapping in GUIs.
      */
+    @SuppressWarnings("NameDoesntMatchTargetClass")
     @WrapOperation(
             method = "itemCount",
             at = @At(
@@ -33,16 +34,17 @@ public class GuiGraphicsExtractorMixin {
             )
     )
     private void modifyStackSizeText(
-			GuiGraphicsExtractor instance, Font font, String string, int x, int y, int color, boolean dropShadow, Operation<Void> original,
-			@Local(name = "amount") String amount, @Local(name = "x") int xParam, @Local(name = "y") int yParam
+			GuiGraphicsExtractor instance, Font font, String str, int x, int y, int color, boolean dropShadow, Operation<Void> original,
+		    @Local(name = "amount") String amount, @Local(name = "x", argsOnly = true) int xParam, @Local(name = "y", argsOnly = true) int yParam
 	) {
-        if (ModConfig.CONFIG.uncapStackSize() && amount.length() > 2 && NumberUtils.isCreatable(amount)) {
-            String formatted = SensibleStackables.FORMATTER.format(Integer.parseInt(amount));
-            float scale = switch (formatted.length()) {
-                case 1, 2 -> 1.0F;
+        if (SensibleStackables.CONFIG.uncapStackSize.get() && amount.length() > 2 && NumberUtils.isCreatable(amount)) {
+            String formatted = SensibleStackablesClient.CONFIG.itemCountShortening.get() ?
+					SensibleStackablesClient.FORMATTER.format(Integer.parseInt(amount)) : str;
+            float scale = SensibleStackablesClient.CONFIG.itemCountScaling.get() ? switch (formatted.length()) {
+				case 1, 2 -> 1.0F;
                 case 3 -> 0.75F;
                 default -> 0.5F;
-            };
+            } : 1.0F;
             pose.translate(xParam, yParam);
             if (scale != 1) pose.scale(scale, scale);
 			original.call(
@@ -52,6 +54,6 @@ public class GuiGraphicsExtractorMixin {
                     color, dropShadow
             );
         }
-        else original.call(instance, font, string, x, y, color, dropShadow);
+        else original.call(instance, font, str, x, y, color, dropShadow);
     }
 }

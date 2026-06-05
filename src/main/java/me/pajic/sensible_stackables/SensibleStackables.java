@@ -1,12 +1,14 @@
 package me.pajic.sensible_stackables;
 
+import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
+import me.pajic.sensible_stackables.config.ModConfig;
+import me.pajic.sensible_stackables.mixson.DynamicTagEvent;
+import me.pajic.sensible_stackables.mixson.MixsonHelper;
+import me.pajic.sensible_stackables.defaulted.MaxStackSizePatchEvent;
 import me.pajic.sensible_stackables.platform.Platform;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.math.RoundingMode;
-import java.text.NumberFormat;
-import java.util.Locale;
 
 //? fabric {
 import me.pajic.sensible_stackables.platform.fabric.FabricPlatform;
@@ -20,13 +22,12 @@ public class SensibleStackables {
 	public static final String MOD_ID = /*$ mod_id*/ "sensible_stackables";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	private static final Platform PLATFORM = createPlatformInstance();
-
-	public static NumberFormat FORMATTER;
+	public static ModConfig CONFIG = ConfigApiJava.registerAndLoadConfig(ModConfig::new);
 
 	public static void onInitialize() {
-		FORMATTER = NumberFormat.getCompactNumberInstance(Locale.US, NumberFormat.Style.SHORT);
-		FORMATTER.setParseIntegerOnly(true);
-		FORMATTER.setRoundingMode(RoundingMode.DOWN);
+		MixsonHelper.setDebugFlags();
+		DynamicTagEvent.register();
+		MaxStackSizePatchEvent.register();
 	}
 
 	public static Platform xplat() {

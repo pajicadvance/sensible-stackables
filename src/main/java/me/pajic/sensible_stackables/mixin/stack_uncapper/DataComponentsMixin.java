@@ -1,7 +1,6 @@
 package me.pajic.sensible_stackables.mixin.stack_uncapper;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import me.pajic.sensible_stackables.config.ModConfig;
+import me.pajic.sensible_stackables.SensibleStackables;
 import net.minecraft.core.component.DataComponents;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,20 +21,6 @@ public class DataComponentsMixin {
             index = 1
     )
     private static int uncapStackSize(int original) {
-        return ModConfig.CONFIG.uncapStackSize() ? Integer.MAX_VALUE : original;
-    }
-
-    /**
-     * @reason Sets the max stack size of all items which use the default stack size to the value defined in the config.
-     */
-    @ModifyExpressionValue(
-            method = "<clinit>",
-            at = @At(
-                    value = "CONSTANT",
-                    args = "intValue=64"
-            )
-    )
-    private static int setCommonStackSize(int original) {
-        return ModConfig.CONFIG.uncapStackSize() ? ModConfig.CONFIG.commonStackSize() : original;
+        return SensibleStackables.CONFIG.uncapStackSize.get() ? Integer.MAX_VALUE : original;
     }
 }

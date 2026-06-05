@@ -22,21 +22,37 @@ Additionally, splash and lingering potions have a 1-second use cooldown to preve
 
 The mod can also be used to uncap the vanilla stack size limit and set any value you want, read below for instructions.
 
-Fabric version requires Fabric API. NeoForge version has no dependencies.
+Version 3.0.0+ requirements:
+- [Fzzy Config](https://modrinth.com/mod/fzzy-config)
+- [Defaulted](https://modrinth.com/mod/defaulted)
+- [Mixson](https://modrinth.com/mod/mixson)
+- [Fabric API](https://modrinth.com/mod/fabric-api) (if on Fabric)
+- [Mod Menu](https://modrinth.com/mod/modmenu) (for accessing in-game config on Fabric)
+
+Older versions of the mod only require Fabric API if on Fabric.
 
 ## Configuration
 
-Stack size values and the throwing potion cooldown can be configured in `sensible_stackables.json` inside the config folder. If setting up a dedicated server, make sure that the configs on the server and client match or else there will be desync issues.
+As of version 3.0.0, it's recommended to use the in-game config screen to configure the mod, as there are item suggestions with auto-completion and most things are explained via tooltips.
+
+The mod can also be configured manually by editing .toml files in inside the `config/sensible_stackables` folder. For mod versions below 3.0.0, there is one `sensible_stackables.json` file inside the config folder.
 
 The configuration supports defining stack sizes for either single items or item tags, for example:
-- Adding `"minecraft:totem_of_undying": 16` will allow stacking totems up to 16
-- Adding `"#minecraft:banners": 64` will allow stacking all items under the `banners` tag up to 64 (# indicates to the mod that this is an item tag)
-- Adding `"#c:buckets": 64` will allow stacking all types of buckets up to 64 (`c` is the namespace for conventional tags, see available conventional tags [here](https://wiki.fabricmc.net/community:common_tags))
+- Adding `"minecraft:totem_of_undying"` with value 16 will allow stacking totems up to 16
+- Adding `"#minecraft:banners"` with value 64 will allow stacking banners up to 64 (# indicates to the mod that this is an item tag)
+- Adding `"#c:buckets"` with value 64 will allow stacking all types of buckets up to 64 (`c` is the namespace for conventional tags, see available conventional tags [here](https://wiki.fabricmc.net/community:common_tags))
+- Adding `"#sensible_stackables:all_block_items"` with value 1 will make all blocks stack up to 1 only (dynamic tag provided by this mod, only in version 3.0.0 and above)
+
+Item entry format for mod version 3.0.0 and above: `[ "minecraft:ender_pearl", 64 ]`
+
+Item entry format for mod versions below 3.0.0: `"minecraft:ender_pearl": 64`
 
 ## Uncapping max stack size
 
-Setting `uncapStackSize` to `true` in the mod configuration will allow setting stack sizes above 64 to items and apply necessary patches to prevent bugs with large stack sizes. Item counts larger than 999 will be shortened in the GUI and the item tooltip will display the exact item count of the stack.
+Setting `uncapStackSize` ("Uncap stack size" in GUI config) to `true` in the mod configuration will allow setting stack sizes above 64 to items and apply necessary patches to prevent bugs with large stack sizes. Item counts larger than 999 will be shortened in the GUI and the item tooltip will display the exact item count of the stack.
 
-`commonStackSize` can then be increased from 64 to a higher value to set a "global" max stack size for all items which use the default stack size. Stack sizes for items which don't use the default stack size (such as potions, boats, enchanted books etc.) still need to be defined manually.
+`commonStackSize` ("Common stack size" in GUI config) can then be increased from 64 to a higher value to set a "global" max stack size for all items which use the default stack size. Stack sizes for items which don't use the default stack size (such as potions, boats, enchanted books etc.) still need to be defined manually.
 
-**WARNING**: While theoretically you can set max stack sizes for everything up to around 2.1 billion, using sizes larger than 100000 can cause performance issues. For example crafting 100000+ items at the same time or taking out 100000+ items from the stonecutter will freeze the game for a while (5-20 seconds). I've tested the mod with `commonStackSize` set to 32768 and performance was still reasonable. **USE HIGHER VALUES AT YOUR OWN RISK!** 
+As of version 3.0.0, item count display changes, such as shortening, scaling and the item count tooltip, can be toggled on and off for compatibility with mods like [Reliable Recount](https://modrinth.com/mod/o123456789-backport).
+
+**WARNING**: While theoretically you can set max stack sizes for everything up to around 2.1 billion, using sizes larger than 100000 can cause performance issues. For example crafting 100000+ items at the same time or taking out 100000+ items from the stonecutter will freeze the game for a while (5-20 seconds). I've tested the mod with common stack size set to 32768 and performance was still reasonable. **USE HIGHER VALUES AT YOUR OWN RISK!** 

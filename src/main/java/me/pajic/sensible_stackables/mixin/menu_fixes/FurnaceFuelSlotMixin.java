@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 public class FurnaceFuelSlotMixin {
 
     @WrapMethod(method = "isBucket")
-    private static boolean limitStack(ItemStack stack, Operation<Boolean> original) {
-        return stack.getCount() <= 1 && original.call(stack);
+    private static boolean limitStack(ItemStack itemStack, Operation<Boolean> original) {
+        return itemStack.getCount() <= 1 && original.call(itemStack);
     }
 }
