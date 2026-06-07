@@ -16,6 +16,7 @@ public class ItemPropertiesMixin {
 
 	@Shadow @Nullable private ResourceKey<Item> id;
 	@Unique private int ss$maxStackSize = 64;
+	@Unique private boolean ss$damageable = false;
 
 	@Inject(
 			method = "stacksTo",
@@ -26,10 +27,18 @@ public class ItemPropertiesMixin {
 	}
 
 	@Inject(
+			method = "durability",
+			at = @At("HEAD")
+	)
+	private void updateDamageable(CallbackInfoReturnable<Item.Properties> cir) {
+		ss$damageable = true;
+	}
+
+	@Inject(
 			method = "finalizeInitializer",
 			at = @At("HEAD")
 	)
 	private void flagDefaultStackSizeItem(CallbackInfoReturnable<Item.Properties> cir) {
-		if (ss$maxStackSize == 64) MaxStackSizePatchEvent.itemsWithDefaultStackSize.add(id);
+		if (!ss$damageable && ss$maxStackSize == 64) MaxStackSizePatchEvent.itemsWithDefaultStackSize.add(id);
 	}
 }

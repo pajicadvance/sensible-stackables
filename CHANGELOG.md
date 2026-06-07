@@ -1,13 +1,1 @@
-- The mod now uses Defaulted to patch item max stack sizes.
-  - Fixes desync issues which sometimes prevented items from stacking correctly.
-  - Allows reloading data using `/reload` to apply max stack size changes without restarting the game.
-- The mod now uses Fzzy Config for configuration.
-  - Provides a graphical in-game config with help tooltips and item suggestions with auto-completion.
-  - Syncs the mod config to clients when connecting to a server.
-- The mod now uses Mixson to create dynamic item tags which automatically support modded content.
-  - Added a `sensible_stackables:all_block_items` dynamic item tag which can be used to change the stack size of all blocks at once.
-  - Turned the `sensible_stackables:minecarts` item tag into a dynamic tag.
-- Added toggles for the following client features:
-  - Shorten item count
-  - Scale down item count
-  - Item count tooltip
+- Fixed max stack size patcher trying to make items with durability stackable, causing crashes when "Uncap stack size" is turned on in some cases.
