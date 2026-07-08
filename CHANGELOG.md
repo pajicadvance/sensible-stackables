@@ -1,1 +1,1 @@
-- Fixed max stack size patcher trying to make items with durability stackable, causing crashes when "Uncap stack size" is turned on in some cases.
+- Updated to the latest version of Defaulted. The mod now requires Defaulted 1.3.1 or higher.
