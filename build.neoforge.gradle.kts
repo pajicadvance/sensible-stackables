@@ -121,8 +121,6 @@ dependencies {
 
 neoForge {
     version = property("loader.neo") as String
-    accessTransformers.from(rootProject.file("src/main/resources/aw/${sc.current.project.substringBefore('-')}.cfg"))
-    validateAccessTransformers = true
 
     mods {
         register(property("mod.id") as String) {

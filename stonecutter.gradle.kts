@@ -38,8 +38,9 @@ stonecutter parameters {
         string(current.parsed >= "1.21.11") {
             replace("ValidatedIdentifier", "ValidatedIdentifier")
             replace("ResourceLocation", "Identifier")
-            replace("location()", "identifier()")
             replace("net.ramixin.mixson_backport", "net.ramixin.mixson")
+            replace("GuiGraphicsExtractorMixin", "GuiGraphicsExtractorMixin")
+            replace("GuiGraphics", "GuiGraphicsExtractor")
         }
     }
 }

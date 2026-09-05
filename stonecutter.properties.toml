@@ -1,51 +1,54 @@
 # general
-mod.id = "modid"
-mod.name = "Template mod"
+mod.id = "sensible_stackables"
+mod.name = "Sensible Stackables"
 mod.group = "me.pajic"
-mod.version = "1.0.0"
-mod.description = ""
+mod.version = "3.0.3"
+mod.description = "Change and uncap stack sizes for any item, with sensible defaults"
 mod.authors = "pajic"
 mod.contributors = ""
 mod.license = "MIT"
 
 # links
-mod.sources_url = "https://github.com/pajicadvance/modid"
-mod.homepage_url = "https://modrinth.com/mod/modid"
-mod.issues_url = "https://github.com/pajicadvance/modid/issues"
+mod.sources_url = "https://github.com/pajicadvance/sensible-stackables"
+mod.homepage_url = "https://modrinth.com/mod/sensible-stackables"
+mod.issues_url = "https://github.com/pajicadvance/sensible-stackables/issues"
 mod.discord_url = "https://discord.gg/5RkzS66zWb"
 
 # publishing
-publish.modrinth = ""
-publish.curseforge = ""
+publish.modrinth = "5lQcMjaC"
+publish.curseforge = "1178081"
 publish.env.mr = "CLIENT_AND_SERVER" #https://modmuss50.github.io/mod-publish-plugin/platforms/modrinth/#all-options
 publish.env.cf.client = true
 publish.env.cf.server = true
-publish.dry_run = true
+publish.dry_run = false
 
 # loom
 loomx.loom_version = "1.17-SNAPSHOT"
 
 # dependencies
 loader.fabric = "0.19.3"
-dep.mixinconstraints.coords = "com.moulberry:$id:$version"
 dep.fzzy_config.coords = "me.fzzyhmstrs:$id:$version"
 dep.fzzy_config.slug = "fzzy-config"
 dep.sodium.coords = "net.caffeinemc:$id-$loader:$version"
-include.mixinconstraints = "1.1.0"
 dev.runtime_optionals = []
 
 [fabric]
 dep.fabric-api.coords = "net.fabricmc.fabric-api:$id:$version"
 dep.modmenu.coords = "com.terraformersmc:$id:$version"
+dep.defaulted.coords = "maven.modrinth:$id:$version-Fabric"
+dep.defaulted.range = ">=1.3.8"
 
 [neoforge]
+dep.defaulted.coords = "maven.modrinth:$id:$version-NeoForge"
+dep.defaulted.range = "[1.3.8,)"
 
 
 ["1.21.1"]
 mod.mc_releases = ["1.21", "1.21.1"]
-loader.neo = "21.1.244"
+loader.neo = "21.1.249"
 dep.mixson.coords = "com.github:Mixson:$version"
 include.mixson = "2.2.0"
+required.defaulted = "1.3.8-1.21.1"
 runtime.sodium = "0.8.12+mc1.21.1"
 
 [fabric."1.21.1"]
@@ -64,6 +67,7 @@ mod.mc_releases = ["26.1", "26.1.1", "26.1.2"]
 loader.neo = "26.1.2.87"
 dep.mixson.coords = "maven.modrinth:$id:$version"
 required.mixson = "2.2.0"
+required.defaulted = "1.3.8-26.1.2"
 runtime.sodium = "0.9.1+mc26.1.2"
 
 [fabric."26.1"]
@@ -82,6 +86,7 @@ mod.mc_releases = ["26.2"]
 loader.neo = "26.2.0.36-beta"
 dep.mixson.coords = "maven.modrinth:$id:$version"
 required.mixson = "2.2.0"
+required.defaulted = "1.3.8-26.1.2"
 runtime.sodium = "0.9.1+mc26.2"
 
 [fabric."26.2"]

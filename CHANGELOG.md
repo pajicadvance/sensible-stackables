@@ -1,0 +1,3 @@
+- Updated to NeoForge 26.2.
+- Backported all changes since 2.1.3 to 1.21.1 versions.
+- Minecraft 1.21.1 is supported again.

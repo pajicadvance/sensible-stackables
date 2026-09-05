@@ -1,0 +1,25 @@
+{
+  "sensible_stackables.config": "Common Config",
+  "sensible_stackables.client_config": "Client Config",
+
+  "sensible_stackables.config.items": "Item stack sizes",
+  "sensible_stackables.config.items.desc": "Edit stack sizes for items and item tags here.",
+  "sensible_stackables.config.splashPotionCooldown": "Splash potion throw cooldown (seconds)",
+  "sensible_stackables.config.uncapStackSize": "Uncap stack size",
+  "sensible_stackables.config.uncapStackSize.desc": "Removes the max stack size hard limit of 99.",
+  "sensible_stackables.config.commonStackSize": "Common stack size",
+  "sensible_stackables.config.commonStackSize.desc": "Changes the max stack size of all items which use the default max stack size of 64. This setting is limited to 99 unless \"Uncap stack size\" is enabled.",
+
+  "sensible_stackables.client_config.itemCountShortening": "Shorten item count",
+  "sensible_stackables.client_config.itemCountShortening.desc": "If a stack has more than 999 items, shortens the displayed item count (for example 1000 -> 1K, 1000000 -> 1M).",
+  "sensible_stackables.client_config.itemCountScaling": "Scale down item count",
+  "sensible_stackables.client_config.itemCountScaling.desc": "If the displayed item count has more than 2 characters (for example 999), reduces the size of the displayed item count to prevent text overlapping.",
+  "sensible_stackables.client_config.itemCountTooltip": "Item count tooltip",
+  "sensible_stackables.client_config.itemCountTooltip.desc": "If a stack has more than 999 items and \"Shorten item count\" is enabled, shows the exact item count in the item tooltip.",
+
+  "text.sensible_stackables.item_count": "%s items",
+
+  "tag.item.sensible_stackables.all_blocks": "All Block Items",
+  "tag.item.sensible_stackables.banner_patterns": "Banner Patterns",
+  "tag.item.sensible_stackables.minecarts": "Minecarts"
+}
