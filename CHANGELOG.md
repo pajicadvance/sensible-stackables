@@ -1,3 +1,5 @@
+3.1.0:
+
 - Added Fabric 26.3 version.
 - Defaulted is no longer required.
   - The mod no longer patches item components to change stack sizes, it now keeps track of stack sizes on its own and intercepts stack size calls instead.
@@ -7,3 +9,7 @@
 - Mixson is no longer required.
   - It can still be installed for the "All blocks" and "Minecarts" dynamic item tags.
 - Added cushions to the default configuration, increasing their stack size from 16 to 64.
+
+3.1.1:
+
+- Fixed stack sizes not clearing properly on config update.

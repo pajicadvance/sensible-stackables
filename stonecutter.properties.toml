@@ -2,7 +2,7 @@
 mod.id = "sensible_stackables"
 mod.name = "Sensible Stackables"
 mod.group = "me.pajic"
-mod.version = "3.1.0"
+mod.version = "3.1.1"
 mod.description = "Change and uncap stack sizes for any item, with sensible defaults"
 mod.authors = "pajic"
 mod.contributors = ""

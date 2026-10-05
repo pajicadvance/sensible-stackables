@@ -45,6 +45,8 @@ public final class StackSizeOverrides {
                       .ifPresent(h -> explicit.put(h.value(), s));
             }
         });
+
+        clear();
         table.putAll(common);
         table.putAll(tagged);
         table.putAll(explicit);
