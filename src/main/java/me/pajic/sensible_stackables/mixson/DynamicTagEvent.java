@@ -9,6 +9,7 @@ import net.ramixin.mixson.util.Index;
 public class DynamicTagEvent {
 
 	public static void register() {
+        MixsonHelper.setDebugFlags();
 		MixsonHelper.registerSingleJson(
 				"Generate All Block Items tag",
 				new Index("sensible_stackables:tags/item/all_block_items"),

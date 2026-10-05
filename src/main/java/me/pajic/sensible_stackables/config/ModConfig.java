@@ -4,16 +4,20 @@ import me.fzzyhmstrs.fzzy_config.annotations.Action;
 import me.fzzyhmstrs.fzzy_config.annotations.RequiresAction;
 import me.fzzyhmstrs.fzzy_config.annotations.Version;
 import me.fzzyhmstrs.fzzy_config.config.Config;
+import me.fzzyhmstrs.fzzy_config.event.api.ServerUpdateContext;
 import me.fzzyhmstrs.fzzy_config.util.AllowableStrings;
 import me.fzzyhmstrs.fzzy_config.validation.collection.ValidatedMap;
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedBoolean;
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedString;
 import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedInt;
 import me.pajic.sensible_stackables.SensibleStackables;
+import me.pajic.sensible_stackables.SensibleStackablesClient;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.Map;
 
-@Version(version = 1)
+@Version(version = 2)
 public class ModConfig extends Config {
 
 	public ModConfig() {
@@ -21,7 +25,6 @@ public class ModConfig extends Config {
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	@RequiresAction(action = Action.RELOAD_DATA)
 	public ValidatedMap<String, Integer> items = (new ValidatedMap.Builder())
 			.keyHandler(new ValidatedString("", new AllowableStrings(ItemSuggestions.get()::contains, ItemSuggestions::get)))
 			.valueHandler(new ValidatedInt(64, Integer.MAX_VALUE, 1))
@@ -33,6 +36,7 @@ public class ModConfig extends Config {
 					Map.entry("minecraft:cake", 16),
 					Map.entry("#minecraft:boats", 16),
 					Map.entry("#minecraft:beds", 16),
+                    Map.entry("#minecraft:cushions", 64),
 					Map.entry("#minecraft:harnesses", 16),
 					Map.entry("#c:eggs", 64),
 					Map.entry("#c:potions", 3),
@@ -45,5 +49,24 @@ public class ModConfig extends Config {
 			.build();
 	public ValidatedInt splashPotionCooldown = new ValidatedInt(1, Integer.MAX_VALUE, 0);
 	@RequiresAction(action = Action.RESTART) public ValidatedBoolean uncapStackSize = new ValidatedBoolean(false);
-	@RequiresAction(action = Action.RELOAD_DATA) public ValidatedInt commonStackSize = new ValidatedInt(64, Integer.MAX_VALUE, 1);
+	public ValidatedInt commonStackSize = new ValidatedInt(64, Integer.MAX_VALUE, 1);
+
+    @Override
+    public void onUpdateServer(@NotNull ServerUpdateContext context) {
+        SensibleStackables.onUpdateConfig(context.getServer());
+    }
+
+    @Override
+    public void onUpdateClient() {
+        SensibleStackablesClient.onUpdateConfig();
+    }
+
+    @Override
+    public void update(int deserializedVersion) {
+        if (deserializedVersion == 1 && !items.containsKey("#minecraft:cushions")) {
+            Map<String, Integer> updatedItems = new HashMap<>(items);
+            updatedItems.put("#minecraft:cushions", 64);
+            items.validateAndSet(updatedItems);
+        }
+    }
 }
