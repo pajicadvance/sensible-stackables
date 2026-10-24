@@ -42,22 +42,27 @@ public class GuiGraphicsExtractorMixin {
 			GuiGraphicsExtractor instance, Font font, String str, int x, int y, int color, boolean dropShadow, Operation<Void> original,
 		    @Local(ordinal = 1) String amount, @Local(argsOnly = true, ordinal = 0) int xParam, @Local(argsOnly = true, ordinal = 1) int yParam
 	) {
-        if (SensibleStackables.CONFIG.uncapStackSize.get() && amount.length() > 2 && NumberUtils.isCreatable(amount)) {
+        if (SensibleStackables.CONFIG.uncapStackSize.get() && amount.length() > 2 && amount.length() < 19 && NumberUtils.isDigits(amount)) {
             String formatted = SensibleStackablesClient.CONFIG.itemCountShortening.get() ?
-					SensibleStackablesClient.FORMATTER.format(Integer.parseInt(amount)) : str;
+					SensibleStackablesClient.FORMATTER.format(Long.parseLong(amount)) : str;
             float scale = SensibleStackablesClient.CONFIG.itemCountScaling.get() ? switch (formatted.length()) {
 				case 1, 2 -> 1.0F;
                 case 3 -> 0.75F;
                 default -> 0.5F;
             } : 1.0F;
+            //~ if <26.1 'pushMatrix' -> 'pushPose'
+            pose.pushMatrix();
             pose.translate(xParam, yParam/*? <26.1 {*//*, 0*//*?}*/);
             if (scale != 1) pose.scale(scale, scale/*? <26.1 {*//*, 1*//*?}*/);
-            /*? <26.1 {*//*return *//*?}*/original.call(
+            /*? <26.1 {*//*int width = *//*?}*/original.call(
                     instance, font, formatted,
                     (int) (16 / scale - font.width(formatted) + (scale * 0.33F) + 1 / scale),
                     (int) (16 / scale - font.lineHeight + Mth.ceil(scale) + 1 / scale),
                     color, dropShadow
             );
+            //~ if <26.1 'popMatrix' -> 'popPose'
+            pose.popMatrix();
+            /*? <26.1 {*//*return width;*//*?}*/
         }
         //~ if >=26.1 'return' -> 'else'
         else original.call(instance, font, str, x, y, color, dropShadow);

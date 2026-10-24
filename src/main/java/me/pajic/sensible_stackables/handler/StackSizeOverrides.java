@@ -25,31 +25,34 @@ public final class StackSizeOverrides {
         boolean uncapped = cfg.uncapStackSize.get();
         Map<Item, Integer> common = new HashMap<>(), tagged = new HashMap<>(), explicit = new HashMap<>();
 
-        int commonSize = cfg.commonStackSize.get();
-        if (commonSize != 64 && (uncapped || commonSize <= 99)) {
-            lookup.listElements().forEach(h -> {
-                Item item = h.value();
-                int raw = item.components().getOrDefault(DataComponents.MAX_STACK_SIZE, 1);
-                if (!((ItemExtension) item).sensible_stackables$isDamageable() && raw == 64) {
-                    common.put(item, commonSize);
-                }
-            });
-        }
+        int commonSize = uncapped ? cfg.commonStackSize.get() : Math.min(cfg.commonStackSize.get(), 99);
+        if (commonSize != 64) lookup.listElements().forEach(h -> {
+            Item item = h.value();
+            if (!isDamageable(item) && getVanillaMaxStackSize(item) == 64) common.put(item, commonSize);
+        });
         cfg.items.get().forEach((key, size) -> {
             int s = uncapped ? size : Math.min(size, 99);
-            if (key.startsWith("#")) {
-                lookup.get(TagKey.create(Registries.ITEM, Identifier.parse(key.substring(1))))
-                      .ifPresent(set -> set.forEach(h -> tagged.put(h.value(), s)));
-            } else {
-                lookup.get(ResourceKey.create(Registries.ITEM, Identifier.parse(key)))
-                      .ifPresent(h -> explicit.put(h.value(), s));
+            boolean isTag = key.startsWith("#");
+            Identifier id = Identifier.tryParse(isTag ? key.substring(1) : key);
+            if (id == null) {
+                SensibleStackables.LOGGER.warn("Skipping invalid {} id in config: {}", isTag ? "tag" : "item", key);
+                return;
             }
+            if (isTag) lookup.get(TagKey.create(Registries.ITEM, id)).ifPresent(set -> set.forEach(h -> {
+                if (!isDamageable(h.value())) tagged.put(h.value(), s);
+            }));
+            else lookup.get(ResourceKey.create(Registries.ITEM, id)).ifPresent(h -> {
+                if (isDamageable(h.value())) {
+                    SensibleStackables.LOGGER.warn("Skipping damageable item in config, it can't be stacked: {}", key);
+                } else explicit.put(h.value(), s);
+            });
         });
 
-        clear();
-        table.putAll(common);
-        table.putAll(tagged);
-        table.putAll(explicit);
+        var next = empty();
+        next.putAll(common);
+        next.putAll(tagged);
+        next.putAll(explicit);
+        table = next;
     }
 
     private static Reference2IntMap<Item> empty() {
@@ -58,8 +61,20 @@ public final class StackSizeOverrides {
         return m;
     }
 
+    private static boolean isDamageable(Item item) {
+        return ((ItemExtension) item).sensible_stackables$isDamageable();
+    }
+
+    private static int getVanillaMaxStackSize(Item item) {
+        return item.components().getOrDefault(DataComponents.MAX_STACK_SIZE, 1);
+    }
+
     public static int get(Item item) {
         return table.getInt(item);
+    }
+
+    public static int lenientMaxStackSize(Item item, int maxStackSize) {
+        return maxStackSize == get(item) ? Math.max(maxStackSize, getVanillaMaxStackSize(item)) : maxStackSize;
     }
 
     public static Map<Item, Integer> snapshot() {
@@ -67,8 +82,9 @@ public final class StackSizeOverrides {
     }
 
     public static void set(Map<Item, Integer> m) {
-        clear();
-        table.putAll(m);
+        var next = empty();
+        next.putAll(m);
+        table = next;
     }
 
     public static void clear() {

@@ -25,7 +25,7 @@ public abstract class ItemMixin implements ItemExtension {
 
     @Override
     public boolean sensible_stackables$isDamageable() {
-        return components().has(DataComponents.MAX_DAMAGE) && !components().has(DataComponents.UNBREAKABLE) && components().has(DataComponents.DAMAGE);
+        return components().has(DataComponents.MAX_DAMAGE);
     }
 
     @ModifyReturnValue(

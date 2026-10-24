@@ -1,15 +1,12 @@
-3.1.0:
-
-- Added Fabric 26.3 version.
-- Defaulted is no longer required.
-  - The mod no longer patches item components to change stack sizes, it now keeps track of stack sizes on its own and intercepts stack size calls instead.
-  - Configuration is unchanged, item tags are still supported in the config, and stack size changes are still synced to clients.
-  - Changing stack sizes in the config in-game now applies changes immediately and doesn't require a datapack reload.
-  - Mod compatibility should remain the same, please report any issues if you run into them.
-- Mixson is no longer required.
-  - It can still be installed for the "All blocks" and "Minecarts" dynamic item tags.
-- Added cushions to the default configuration, increasing their stack size from 16 to 64.
-
-3.1.1:
-
-- Fixed stack sizes not clearing properly on config update.
+- Added NeoForge 26.3 version.
+- Fixed stack sizes not applying to items inside shulker boxes and bundles (26.1+).
+- Fixed crafting producing nothing when an item's stack size is set lower than the recipe output count (26.1+).
+- Damageable items (tools, armor, etc.) are now skipped when listed in the config, since vanilla doesn't allow them to stack.
+- Fixed furnaces deleting buckets when burning stacked lava buckets. Fuel that leaves an item behind can now only be placed one at a time.
+- Fixed stack sizes not updating on NeoForge after `/reload`, and not being applied on dedicated servers until the first player joined.
+- Invalid item or tag IDs in the config are now skipped with a warning instead of crashing the server.
+- Fixed the durability bar and cooldown overlay being misplaced on stacks with 100+ items (1.21.1).
+- Fixed the splash potion cooldown not applying when throwing the last potion in a stack.
+- "Common stack size" values above 99 are now capped at 99 when "Uncap stack size" is disabled, instead of being ignored.
+- Fixed a possible crash when another mod displays non-numeric item count text.
+- Fixed a rare issue where stack sizes could briefly reset while being updated.

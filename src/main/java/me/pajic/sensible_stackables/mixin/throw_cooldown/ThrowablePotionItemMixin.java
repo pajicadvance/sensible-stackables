@@ -21,7 +21,7 @@ public class ThrowablePotionItemMixin extends PotionItem {
 
     @Inject(
             method = "use",
-            at = @At("RETURN")
+            at = @At("HEAD")
     )
     private void addThrowingCooldown(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
 		int cooldown = SensibleStackables.CONFIG.splashPotionCooldown.get();

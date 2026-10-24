@@ -2,7 +2,7 @@
 mod.id = "sensible_stackables"
 mod.name = "Sensible Stackables"
 mod.group = "me.pajic"
-mod.version = "3.1.1"
+mod.version = "3.1.2"
 mod.description = "Change and uncap stack sizes for any item, with sensible defaults"
 mod.authors = "pajic"
 mod.contributors = ""
@@ -95,10 +95,9 @@ required.fzzy_config = "0.7.6+26.2+neoforge"
 
 ["26.3"]
 mod.mc_releases = ["26.3"]
-#loader.neo = "26.2.0.36-beta"
+loader.neo = "26.3.0.97"
 dep.mixson.coords = "maven.modrinth:$id:$version"
 optional.mixson = "2.2.1"
-runtime.sodium = "0.9.2+mc26.3"
 
 [fabric."26.3"]
 mod.mc_compat = "~26.3"
@@ -106,6 +105,6 @@ required.fabric-api = "0.161.0+26.3"
 required.fzzy_config = "0.7.7+fix3+26.3"
 runtime.modmenu = "21.0.0"
 
-#[neoforge."26.2"]
-#mod.mc_compat = "[26.3, 26.4)"
-#required.fzzy_config = "0.7.6+26.2+neoforge"
+[neoforge."26.3"]
+mod.mc_compat = "[26.3, 26.4)"
+required.fzzy_config = "0.7.7+fix3+26.3+neoforge"

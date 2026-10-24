@@ -35,7 +35,7 @@ public class NeoforgeClientEventSubscriber {
 
     @SubscribeEvent
     private static void onDisconnect(ClientPlayerNetworkEvent.LoggingOut event) {
-        StackSizeOverrides.clear();
+        if (event.getConnection() != null) StackSizeOverrides.clear();
     }
 }
 *///?}
